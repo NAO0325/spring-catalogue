@@ -22,10 +22,10 @@ mvn spring-boot:run
 
 == Para probarlo se sugiere la siguiente ruta
 
-ingresar al endpoint desde cualquier cliente Soap UI, Postman, etc:
+ingresar al endpoint desde cualquier cliente Soap UI, Postman, etc (para consultar un precio en una fecha se ajunta catálogo en Postman ***[aquí](https://github.com/NAO0325/spring-catalogue/blob/main/src/main/resources/Catalogue.postman_collection.json)***) para probar cnexión usar Get:
 
-Get - localhost:9090/api/catalogue/price/1 (Para probar recuperación de datos)
+Get - localhost:9090/api/catalogue/price/1
 
-Post - localhost:9090/api/catalogue/price/listAllByBrandProductBetweenDate (para consultar un precio en una fecha se ajunta catálogo en Postman aquí)
+Post - localhost:9090/api/catalogue/price/listAllByBrandProductBetweenDate
 
 
