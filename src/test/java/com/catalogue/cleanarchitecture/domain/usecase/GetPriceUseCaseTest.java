@@ -13,12 +13,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class GetPriceUseCaseTest {
+class GetPriceUseCaseTest {
 
     private GetPriceUseCase getPriceUseCase;
     @Mock
@@ -30,7 +29,43 @@ public class GetPriceUseCaseTest {
     }
 
     @Test
-    public void findByBrandProductBetweenDateTest1() throws Exception {
+    void getPriceByPriceListTest() {
+        // given
+        Price mock = new Price();
+
+        // when
+        when(priceRepository.findByPriceList(1L))
+                .thenReturn(mock);
+
+        //then
+        Price result = getPriceUseCase.getPrice(1L);
+        Assertions.assertNotNull(result);
+    }
+
+    @Test
+    void findAllByBrandIdAndProductIdBetweenDatesTest() {
+        // given
+        String dateTest = "2020-06-14 10:00:00";
+
+        // when
+        when(priceRepository.findAllByBrandIdAndProductIdBetweenDates(1L, 35455L, DateUtil.getDateFromString(dateTest)))
+                .thenReturn(mockListTest1());
+
+        //then
+        List<Price> results = getPriceUseCase.listAllByBrandProductBetweenDate(1L, 35455L, null);
+        List<Price> results1 = getPriceUseCase.listAllByBrandProductBetweenDate(1L, 35455L, "Mal formato");
+        List<Price> results2 = getPriceUseCase.listAllByBrandProductBetweenDate(1L, 35455L, dateTest);
+        Price price = results2.get(0);
+        Assertions.assertNotNull(results);
+        Assertions.assertNotNull(results1);
+        Assertions.assertNotNull(results2);
+        Assertions.assertEquals(1L, price.getBrandId());
+        Assertions.assertEquals(35455L, price.getProductId());
+        Assertions.assertEquals(35.5, price.getPrice());
+    }
+
+    @Test
+    void findByBrandProductBetweenDateTest1() {
         // given
         String dateTest = "2020-06-14 10:00:00";
 
@@ -40,13 +75,13 @@ public class GetPriceUseCaseTest {
 
         //then
         Price result = getPriceUseCase.findByBrandProductBetweenDate(1L, 35455L, dateTest);
-        Assertions.assertEquals(result.getBrandId(), 1L);
-        Assertions.assertEquals(result.getProductId(), 35455L);
-        Assertions.assertEquals(result.getPrice(), 35.5);
+        Assertions.assertEquals(1L, result.getBrandId());
+        Assertions.assertEquals(35455L, result.getProductId());
+        Assertions.assertEquals(35.5, result.getPrice());
     }
 
     @Test
-    public void findByBrandProductBetweenDateTest2() throws Exception {
+    void findByBrandProductBetweenDateTest2() {
         // given
         String dateTest = "2020-06-14 16:00:00";
 
@@ -56,13 +91,13 @@ public class GetPriceUseCaseTest {
 
         //then
         Price result = getPriceUseCase.findByBrandProductBetweenDate(1L, 35455L, dateTest);
-        Assertions.assertEquals(result.getBrandId(), 1L);
-        Assertions.assertEquals(result.getProductId(), 35455L);
-        Assertions.assertEquals(result.getPrice(), 25.45);
+        Assertions.assertEquals(1L, result.getBrandId());
+        Assertions.assertEquals(35455L, result.getProductId());
+        Assertions.assertEquals(25.45, result.getPrice());
     }
 
     @Test
-    public void findByBrandProductBetweenDateTest3() throws Exception {
+    void findByBrandProductBetweenDateTest3() {
         // given
         String dateTest = "2020-06-14 21:00:00";
 
@@ -72,13 +107,13 @@ public class GetPriceUseCaseTest {
 
         //then
         Price result = getPriceUseCase.findByBrandProductBetweenDate(1L, 35455L, dateTest);
-        Assertions.assertEquals(result.getBrandId(), 1L);
-        Assertions.assertEquals(result.getProductId(), 35455L);
-        Assertions.assertEquals(result.getPrice(), 35.5);
+        Assertions.assertEquals(1L, result.getBrandId());
+        Assertions.assertEquals(35455L, result.getProductId());
+        Assertions.assertEquals(35.5, result.getPrice());
     }
 
     @Test
-    public void findByBrandProductBetweenDateTest4() throws Exception {
+    void findByBrandProductBetweenDateTest4() {
         // given
         String dateTest = "2020-06-15 10:00:00";
 
@@ -88,13 +123,13 @@ public class GetPriceUseCaseTest {
 
         //then
         Price result = getPriceUseCase.findByBrandProductBetweenDate(1L, 3595L, dateTest);
-        Assertions.assertEquals(result.getBrandId(), 1L);
-        Assertions.assertEquals(result.getProductId(), 35455L);
-        Assertions.assertEquals(result.getPrice(), 30.5);
+        Assertions.assertEquals(1L, result.getBrandId());
+        Assertions.assertEquals(35455L, result.getProductId());
+        Assertions.assertEquals(30.5, result.getPrice());
     }
 
     @Test
-    public void findByBrandProductBetweenDateTest5() throws Exception {
+    void findByBrandProductBetweenDateTest5() {
         // given
         String dateTest = "2020-06-15 21:00:00";
 
@@ -104,9 +139,9 @@ public class GetPriceUseCaseTest {
 
         //then
         Price result = getPriceUseCase.findByBrandProductBetweenDate(1L, 3595L, dateTest);
-        Assertions.assertEquals(result.getBrandId(), 1L);
-        Assertions.assertEquals(result.getProductId(), 35455L);
-        Assertions.assertEquals(result.getPrice(), 38.95);
+        Assertions.assertEquals(1L, result.getBrandId());
+        Assertions.assertEquals(35455L, result.getProductId());
+        Assertions.assertEquals(38.95, result.getPrice());
     }
 
     private List<Price> mockListTest1() {

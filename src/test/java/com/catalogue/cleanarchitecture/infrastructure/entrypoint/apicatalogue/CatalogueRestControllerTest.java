@@ -2,6 +2,7 @@ package com.catalogue.cleanarchitecture.infrastructure.entrypoint.apicatalogue;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,6 +34,69 @@ class CatalogueRestControllerTest {
 
     @MockBean
     private GetPriceUseCase getPriceUseCase;
+
+    @Test
+    void returnGetPriceDataOK() throws Exception {
+        // given
+        String requestJson = "";
+
+        // when
+        mockGetPriceUseCaseEmpty(false);
+
+        // then
+        MvcResult mvcResult = mvc
+                .perform(get("/api/catalogue/price/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        mvcResult.getResponse();
+        String response = mvcResult.getResponse().getContentAsString();
+        Assertions.assertNotNull(response);
+    }
+
+    @Test
+    void returnGetPriceDataEmpty() throws Exception {
+        // given
+        String requestJson = "";
+
+        // when
+        mockGetPriceUseCaseEmpty(false);
+
+        // then
+        MvcResult mvcResult = mvc
+                .perform(get("/api/catalogue/price/8")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        mvcResult.getResponse();
+        String response = mvcResult.getResponse().getContentAsString();
+        Assertions.assertNotNull(response);
+    }
+
+    @Test
+    void returnGetPriceDataNotFound() throws Exception {
+        // given
+        String requestJson = "";
+
+        // when
+        mockGetPriceUseCaseEmpty(false);
+
+        // then
+        MvcResult mvcResult = mvc
+                .perform(get("/api/catalogue/price/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        mvcResult.getResponse();
+        String response = mvcResult.getResponse().getContentAsString();
+        Assertions.assertNotNull(response);
+    }
 
     @Test
     void returnPriceDataNull() throws Exception {

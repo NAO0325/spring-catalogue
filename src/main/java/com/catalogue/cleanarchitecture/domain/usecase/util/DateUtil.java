@@ -1,8 +1,5 @@
 package com.catalogue.cleanarchitecture.domain.usecase.util;
 
-
-import org.apache.commons.lang3.StringUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +33,7 @@ public class DateUtil {
      * @return Date
      */
     public static Date getDateFromString(String date) {
-        if (StringUtils.isBlank(date)) {
+        if (date == null || date.isEmpty()) {
             return null;
         }
         String format = determineDateFormat(date);

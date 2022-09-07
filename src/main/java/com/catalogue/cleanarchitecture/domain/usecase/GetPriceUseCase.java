@@ -24,9 +24,9 @@ public class GetPriceUseCase {
         if (!prices.isEmpty()) {
             if (prices.size() > 1) {
                 //Se dejan los elementos de mayor prioridad
-                ListPriceUtil.filterSimilarElementsByPrority(prices);
+                prices = ListPriceUtil.filterSimilarElementsByPrority(prices);
                 //Si existe mas de uno aún, se dejara al elemento con mayor priceList
-                ListPriceUtil.filterSimilarElementsByPriceList(prices);
+                prices = ListPriceUtil.filterSimilarElementsByPriceList(prices);
                 //Se devuelve un unico objeto
                 return prices.get(0);
             }

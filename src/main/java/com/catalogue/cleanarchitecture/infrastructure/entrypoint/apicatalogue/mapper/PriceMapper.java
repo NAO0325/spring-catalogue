@@ -22,15 +22,6 @@ public class PriceMapper {
         return priceDtos;
     }
 
-    public static List<PriceResponseDto> listToResponseDtoList(List<Price> prices) {
-        List<PriceResponseDto> priceResponseDtos = new ArrayList<>();
-        if (prices == null || prices.isEmpty()) {
-            return priceResponseDtos;
-        }
-        prices.forEach(price -> priceResponseDtos.add(toResponseDto(price)));
-        return priceResponseDtos;
-    }
-
     public static PriceDto toDto(Price price) {
         if (price == null) {
             return null;
@@ -45,22 +36,6 @@ public class PriceMapper {
         dto.setPrice(price.getPrice());
         dto.setCurr(price.getCurr());
         return dto;
-    }
-
-    public static Price toDomain(PriceDto priceDto) {
-        if (priceDto == null) {
-            return null;
-        }
-        Price price = new Price();
-        price.setPriceList(priceDto.getPriceList());
-        price.setBrandId(priceDto.getBrandId());
-        price.setProductId(priceDto.getProductId());
-        price.setStartDate(priceDto.getStartDate());
-        price.setEndDate(priceDto.getEndDate());
-        price.setPriority(priceDto.getPriority());
-        price.setPrice(priceDto.getPrice());
-        price.setCurr(priceDto.getCurr());
-        return price;
     }
 
     public static PriceResponseDto toResponseDto(Price price) {

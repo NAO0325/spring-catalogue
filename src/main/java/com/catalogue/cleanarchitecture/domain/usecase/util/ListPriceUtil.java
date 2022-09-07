@@ -3,6 +3,8 @@ package com.catalogue.cleanarchitecture.domain.usecase.util;
 import com.catalogue.cleanarchitecture.domain.model.Price;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class ListPriceUtil {
 
@@ -15,18 +17,16 @@ public class ListPriceUtil {
      *
      * @param prices Recibe la lista de Price ordenada por prority descenedente
      */
-    public static void filterSimilarElementsByPrority(List<Price> prices) {
-        int i = 0;
-        while (prices.size() > 1) {
-            if (i >= prices.size() - 1) {
-                break;
-            }
-            if (prices.get(i).getPriority() > prices.get(i + 1).getPriority()) {
-                prices.remove(i + 1);
-            } else {
-                i++;
-            }
-        }
+    public static List<Price> filterSimilarElementsByPrority(List<Price> prices) {
+        //Se recupera valor mas alto del campo
+        Integer maxPriority = prices
+                .stream()
+                .mapToInt(Price::getPriority)
+                .max().orElse(0);
+        //Se devuelve lista con filtro aplicado
+        return prices.stream()
+                .filter(price -> price.getPriority() >= maxPriority)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -35,18 +35,16 @@ public class ListPriceUtil {
      *
      * @param prices Recibe la lista de Price ordenada por 'priceList' descenedente
      */
-    public static void filterSimilarElementsByPriceList(List<Price> prices) {
-        int i = 0;
-        while (prices.size() > 1) {
-            if (i >= prices.size() - 1) {
-                break;
-            }
-            if (prices.get(i).getPriceList() > prices.get(i + 1).getPriceList()) {
-                prices.remove(i + 1);
-            } else {
-                i++;
-            }
-        }
+    public static List<Price> filterSimilarElementsByPriceList(List<Price> prices) {
+        //Se recupera valor mas alto del campo
+        Long maxPriceList = prices
+                .stream()
+                .mapToLong(Price::getPriceList)
+                .max().orElse(0);
+        //Se devuelve lista con filtro aplicado
+        return prices.stream()
+                .filter(price -> price.getPriceList() >= maxPriceList)
+                .collect(Collectors.toList());
     }
 
 }

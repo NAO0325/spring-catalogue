@@ -2,7 +2,6 @@ package com.catalogue.cleanarchitecture.infrastructure.entrypoint.apicatalogue;
 
 import com.catalogue.cleanarchitecture.domain.model.Price;
 import com.catalogue.cleanarchitecture.domain.usecase.GetPriceUseCase;
-import com.catalogue.cleanarchitecture.domain.usecase.SavePriceUseCase;
 import com.catalogue.cleanarchitecture.infrastructure.entrypoint.apicatalogue.dto.PriceDto;
 import com.catalogue.cleanarchitecture.infrastructure.entrypoint.apicatalogue.dto.PriceRequestDto;
 import com.catalogue.cleanarchitecture.infrastructure.entrypoint.apicatalogue.dto.PriceResponseDto;
@@ -22,8 +21,6 @@ import java.util.List;
 public class CatalogueRestController {
 
     private final GetPriceUseCase getPriceUseCase;
-
-    private final SavePriceUseCase savePriceUseCase;
 
     @GetMapping("/price/{priceList}")
     public ResponseEntity<PriceResponseDto> getPriceByPriceList(@PathVariable Long priceList) {
@@ -49,12 +46,4 @@ public class CatalogueRestController {
         return new ResponseEntity<>(PriceMapper.listToDtoList(result), HttpStatus.OK);
 
     }
-
-    @PostMapping("/price")
-    public ResponseEntity<PriceDto> saveUser(@RequestBody PriceDto priceDto) {
-
-        return new ResponseEntity<>(PriceMapper.toDto(savePriceUseCase.savePrice(PriceMapper.toDomain(priceDto))), HttpStatus.CREATED);
-
-    }
-
 }
