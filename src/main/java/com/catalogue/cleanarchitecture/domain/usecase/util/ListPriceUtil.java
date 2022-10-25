@@ -2,6 +2,7 @@ package com.catalogue.cleanarchitecture.domain.usecase.util;
 
 import com.catalogue.cleanarchitecture.domain.model.Price;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +20,8 @@ public class ListPriceUtil {
      */
     public static List<Price> filterSimilarElementsByPrority(List<Price> prices) {
         //Se recupera valor mas alto del campo
-        Integer maxPriority = prices
-                .stream()
-                .mapToInt(Price::getPriority)
-                .max().orElse(0);
+        prices.sort(Comparator.comparing(Price::getPriority).reversed());
+        Integer maxPriority = (!prices.isEmpty()) ? prices.get(0).getPriority() : 0;
         //Se devuelve lista con filtro aplicado
         return prices.stream()
                 .filter(price -> price.getPriority() >= maxPriority)
@@ -37,10 +36,8 @@ public class ListPriceUtil {
      */
     public static List<Price> filterSimilarElementsByPriceList(List<Price> prices) {
         //Se recupera valor mas alto del campo
-        Long maxPriceList = prices
-                .stream()
-                .mapToLong(Price::getPriceList)
-                .max().orElse(0);
+        prices.sort(Comparator.comparing(Price::getPriceList).reversed());
+        Long maxPriceList = (!prices.isEmpty()) ? prices.get(0).getPriceList() : 0;
         //Se devuelve lista con filtro aplicado
         return prices.stream()
                 .filter(price -> price.getPriceList() >= maxPriceList)

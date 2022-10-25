@@ -11,6 +11,4 @@ public interface PriceRepository {
    
    List<Price> findAllByBrandIdAndProductIdBetweenDates(Long brandId, Long productId, Date dateBetween);
 
-   Price save(Price user);
-
 }

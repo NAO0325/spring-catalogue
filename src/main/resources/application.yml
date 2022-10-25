@@ -1,6 +1,9 @@
 server:
     port: 9090
 spring:
+  output:
+      ansi:
+        enabled: ALWAYS
   application:
       name: Catalogue Services
   datasource:

@@ -35,10 +35,4 @@ public class PriceDboRepository implements PriceRepository {
         entities.forEach(entity -> prices.add(PriceMapper.toDomain(entity)));
         return prices;
     }
-
-    @Override
-    public Price save(Price user) {
-        PriceEntity entity = priceRepository.save(PriceMapper.toDbo(user));
-        return PriceMapper.toDomain(entity);
-    }
 }
